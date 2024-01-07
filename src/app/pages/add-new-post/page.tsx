@@ -1,5 +1,5 @@
 import {redirect} from "next/navigation";
-import NewPostForm from "../ui/newPostForm/NewPostForm";
+import NewPostForm from "../../ui/newPostForm/NewPostForm";
 
 export default function Page() {
     return (

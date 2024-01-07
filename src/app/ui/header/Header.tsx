@@ -15,8 +15,8 @@ function Header() {
                     <h2>logo</h2>
                 </Link>
                 <div className="ms-auto flex gap-8">
-                    {path !== "/add-new-post" ? (
-                        <Link href="/add-new-post">
+                    {path !== "/pages/add-new-post" ? (
+                        <Link href="/pages/add-new-post">
                             <Button text="Add new post" size="lg" />
                         </Link>
                     ) : null}

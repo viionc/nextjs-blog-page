@@ -1,12 +1,13 @@
 "use client";
 import React, {ReactNode, createContext, useContext, useState} from "react";
-
+import {useRouter} from "next/navigation";
 export type Post = {
     title: string;
-    user: string;
     category: string;
     text: string;
     postId: string;
+    userId: string;
+    createdAt: number;
 };
 type BlogContextProps = {
     posts: Post[];
@@ -23,9 +24,11 @@ export const useBlogContext = () => {
 
 function BlogContextProvider({children}: {children: ReactNode}) {
     const [posts, setPosts] = useState<Post[]>([]);
-
+    const router = useRouter();
     const addPost = (post: Post) => {
-        setPosts((prev) => [...prev, post]);
+        fetch("http://localhost:3000/api/post", {cache: "no-store", method: "POST", body: JSON.stringify(post)}).then(() =>
+            router.push(`/pages/posts/${post.postId}`)
+        );
     };
 
     return <BlogContext.Provider value={{posts, addPost}}>{children}</BlogContext.Provider>;

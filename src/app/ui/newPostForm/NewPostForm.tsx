@@ -4,6 +4,7 @@ import {FormEvent, useState} from "react";
 import {useBlogContext} from "@/app/services/BlogContext";
 import {useAuthContext} from "@/app/services/AuthContext";
 import {v4 as uuidv4} from "uuid";
+import {addPost} from "@/lib/dataUtil";
 import {useRouter} from "next/navigation";
 
 function NewPostForm() {
@@ -11,7 +12,6 @@ function NewPostForm() {
     const [title, setTitle] = useState("");
     const [category, setCategory] = useState("Food");
     const [text, setText] = useState("");
-    const {addPost} = useBlogContext();
     const {user} = useAuthContext();
     const router = useRouter();
 
@@ -21,11 +21,11 @@ function NewPostForm() {
             title,
             category,
             text,
-            user,
+            userId: user,
             postId: uuidv4(),
+            createdAt: Date.now(),
         };
-        addPost(post);
-        router.push("/");
+        addPost(post).then(() => router.push(`/pages/posts/${post.postId}`));
     };
 
     return (
