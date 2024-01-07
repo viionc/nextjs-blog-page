@@ -1,17 +1,31 @@
 "use client";
 
 import {FormEvent, useState} from "react";
-import Button from "../components/Button";
+import {useBlogContext} from "@/app/services/BlogContext";
+import {useAuthContext} from "@/app/services/AuthContext";
+import {v4 as uuidv4} from "uuid";
+import {useRouter} from "next/navigation";
 
 function NewPostForm() {
     const categories = ["Food", "Technology", "Movies & TV shows", "Music"] as const;
     const [title, setTitle] = useState("");
     const [category, setCategory] = useState("Food");
     const [text, setText] = useState("");
+    const {addPost} = useBlogContext();
+    const {user} = useAuthContext();
+    const router = useRouter();
 
     const submit = (e: FormEvent) => {
         e.preventDefault();
-        console.log(title, category, text);
+        const post = {
+            title,
+            category,
+            text,
+            user,
+            postId: uuidv4(),
+        };
+        addPost(post);
+        router.push("/");
     };
 
     return (

@@ -3,6 +3,7 @@ import "./globals.css";
 import {openSans} from "./ui/fonts";
 import Header from "./ui/header/Header";
 import AuthContextProvider from "./services/AuthContext";
+import BlogContextProvider from "./services/BlogContext";
 
 export const metadata: Metadata = {
     title: "Nextjs Blog Page",
@@ -13,10 +14,12 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
     return (
         <html lang="en">
             <AuthContextProvider>
-                <body className={`${openSans.className} antialiased`} suppressHydrationWarning={true}>
-                    <Header />
-                    {children}
-                </body>
+                <BlogContextProvider>
+                    <body className={`${openSans.className} antialiased`} suppressHydrationWarning={true}>
+                        <Header />
+                        {children}
+                    </body>
+                </BlogContextProvider>
             </AuthContextProvider>
         </html>
     );
