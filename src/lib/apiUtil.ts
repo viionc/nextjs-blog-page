@@ -1,6 +1,7 @@
 import {Post} from "@/app/services/BlogContext";
 
 export type Status = "loading" | "done" | "error";
+export const BASE_URL = process.env.POSTGRES_URL;
 
 export const formatPost = (data: any): Post => {
     return {
@@ -15,7 +16,7 @@ export const formatPost = (data: any): Post => {
 
 export const getAllPosts = async (): Promise<Post[]> => {
     try {
-        const response = await fetch("http://localhost:3000/api/get", {cache: "no-store"});
+        const response = await fetch(`api/get`, {cache: "no-store"});
         const data = await response.json();
         const posts = data.rows.map((row: any) => formatPost(row));
         return posts;
@@ -26,7 +27,7 @@ export const getAllPosts = async (): Promise<Post[]> => {
 
 export const getPost = async (id: string): Promise<Post> => {
     try {
-        const response = await fetch(`http://localhost:3000/api/get/${id}`, {cache: "no-store"});
+        const response = await fetch(`api/get/${id}`, {cache: "no-store"});
         const data = await response.json();
         const post = formatPost(data.row);
         return post;
@@ -37,7 +38,7 @@ export const getPost = async (id: string): Promise<Post> => {
 
 export const addPost = async (post: Post): Promise<boolean> => {
     try {
-        await fetch("http://localhost:3000/api/post", {cache: "no-store", method: "POST", body: JSON.stringify(post)});
+        await fetch("api/post", {cache: "no-store", method: "POST", body: JSON.stringify(post)});
         return true;
     } catch (error) {
         return false;

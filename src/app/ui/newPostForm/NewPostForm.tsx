@@ -4,7 +4,7 @@ import {FormEvent, useState} from "react";
 import {useBlogContext} from "@/app/services/BlogContext";
 import {useAuthContext} from "@/app/services/AuthContext";
 import {v4 as uuidv4} from "uuid";
-import {addPost} from "@/lib/dataUtil";
+import {addPost} from "@/lib/apiUtil";
 import {useRouter} from "next/navigation";
 
 function NewPostForm() {

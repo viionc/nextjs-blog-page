@@ -3,7 +3,7 @@ import {Post} from "@/app/services/BlogContext";
 import React, {useEffect, useState} from "react";
 import PostCard from "./components/PostCard";
 import Spinner from "./components/Spinner";
-import {Status, getAllPosts} from "@/lib/dataUtil";
+import {Status, getAllPosts} from "@/lib/apiUtil";
 
 function BlogPage() {
     const [posts, setPosts] = useState<Post[]>([]);
