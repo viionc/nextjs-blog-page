@@ -12,7 +12,6 @@ function NewPostForm() {
     const [title, setTitle] = useState("");
     const [category, setCategory] = useState("Food");
     const [text, setText] = useState("");
-    const {user} = useAuthContext();
     const router = useRouter();
 
     const userId = "clr4391tp0000almxewj7g4re";
