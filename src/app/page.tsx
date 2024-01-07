@@ -1,5 +1,3 @@
-import Image from "next/image";
-import Header from "./ui/header/Header";
 import BlogPage from "./ui/BlogPage";
 
 export default function Home() {

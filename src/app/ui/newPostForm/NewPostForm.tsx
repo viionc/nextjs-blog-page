@@ -15,17 +15,19 @@ function NewPostForm() {
     const {user} = useAuthContext();
     const router = useRouter();
 
+    const userId = "clr4391tp0000almxewj7g4re";
+
     const submit = (e: FormEvent) => {
         e.preventDefault();
         const post = {
             title,
             category,
             text,
-            userId: user,
-            postId: uuidv4(),
-            createdAt: Date.now(),
+            userId,
         };
-        addPost(post).then(() => router.push(`/pages/posts/${post.postId}`));
+        addPost(post)
+            .then((data) => router.push(`/posts/${data.postId}`))
+            .catch((err) => console.log(err));
     };
 
     return (

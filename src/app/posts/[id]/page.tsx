@@ -1,7 +1,6 @@
 "use client";
-import {Post} from "@/app/services/BlogContext";
 import Spinner from "@/app/ui/components/Spinner";
-import {Status, getPost} from "@/lib/apiUtil";
+import {Post, Status, getPost} from "@/lib/apiUtil";
 import {usePathname} from "next/navigation";
 import React, {useEffect, useState} from "react";
 
