@@ -15,7 +15,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
         <html lang="en">
             <AuthContextProvider>
                 <BlogContextProvider>
-                    <body className={`${openSans.className} antialiased`} suppressHydrationWarning={true}>
+                    <body className={`${openSans.className} antialiased bg-zinc-900`} suppressHydrationWarning={true}>
                         <Header />
                         {children}
                     </body>

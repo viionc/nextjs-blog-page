@@ -48,13 +48,14 @@ export function NewPostForm({user}: {user: User}) {
                         id="title"
                         placeholder="Enter your blog title"
                         onChange={(e) => setTitle(e.target.value)}
+                        required
                     />
                 </div>
                 <div className="flex flex-col space-y-1.5 ">
                     <Label className="text-lg" htmlFor="category">
                         Category
                     </Label>
-                    <Select onValueChange={(value) => setCategory(value)}>
+                    <Select onValueChange={(value) => setCategory(value)} required>
                         <SelectTrigger className="text-base bg-slate-700" id="category">
                             <SelectValue placeholder="Select a category" />
                         </SelectTrigger>
@@ -76,6 +77,7 @@ export function NewPostForm({user}: {user: User}) {
                         id="content"
                         placeholder="Write your blog post here..."
                         onChange={(e) => setText(e.target.value)}
+                        required
                     />
                 </div>
                 <Button className="self-end bg-white text-black" type="submit">

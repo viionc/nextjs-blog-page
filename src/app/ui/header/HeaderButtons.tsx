@@ -7,7 +7,6 @@ async function HeaderButtons() {
 
     return (
         <div className="ms-auto flex gap-8">
-            {session?.user ? <AddNewPostButton user={session.user} /> : null}
             <AuthComponent user={session?.user} />
         </div>
     );
