@@ -1,17 +1,14 @@
 import {auth} from "@/auth";
-import AuthButton from "./AuthButton";
+import AuthComponent from "./AuthButton";
+import AddNewPostButton from "./AddNewPostButton";
 
 async function HeaderButtons() {
     const session = await auth();
 
     return (
         <div className="ms-auto flex gap-8">
-            {session?.user ? (
-                <button className={`bg-white rounded-md text-black hover:bg-gray-300 transition-colors p-1 font-semibold h-8 w-32`}>
-                    Add new post
-                </button>
-            ) : null}
-            <AuthButton user={session?.user} />
+            {session?.user ? <AddNewPostButton user={session.user} /> : null}
+            <AuthComponent user={session?.user} />
         </div>
     );
 }

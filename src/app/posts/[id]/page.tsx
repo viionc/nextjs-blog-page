@@ -3,6 +3,7 @@ import Spinner from "@/app/ui/components/Spinner";
 import {Post, Status, getPost} from "@/lib/apiUtil";
 import {usePathname} from "next/navigation";
 import React, {useEffect, useState} from "react";
+import PostContent from "./PostContent";
 
 function Page() {
     const [post, setPost] = useState<Post | null>(null);
@@ -20,9 +21,9 @@ function Page() {
     }, [postId]);
 
     return (
-        <main className="flex justify-center w-full">
+        <main className="flex justify-center w-full py-6">
             {status === "loading" && <Spinner />}
-            {status === "done" && post && <div>{post.title}</div>}
+            {status === "done" && post && <PostContent post={post} />}
             {status === "error" && <p>Couldnt load data</p>}
         </main>
     );

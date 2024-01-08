@@ -39,6 +39,7 @@ export interface PostRequest {
     category: string;
     text: string;
     userId: string;
+    userName: string;
 }
 export interface Post extends PostRequest {
     postId: string;
