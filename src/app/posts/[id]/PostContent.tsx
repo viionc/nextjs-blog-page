@@ -11,7 +11,7 @@ function PostContent({post}: {post: Post}) {
                     {post.category} {post.createdAt}
                 </h3>
             </div>
-            <p className="text-xl">{post.text}</p>
+            <p className="text-xl whitespace-pre-line">{post.text}</p>
         </article>
     );
 }
