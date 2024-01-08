@@ -1,3 +1,24 @@
+# "Blog Page" 
+
+Project for learning purposes. 
+
+Features so far:
+- Authentication with GitHub,
+- Adding posts to the database,
+- Viewing individual posts
+
+Techstack:
+- Next.js
+- Prisma
+- PostgreSQL (vercel)
+- Next Auth
+- TypeScript
+
+
+Also testing some v0 AI components by vercel.
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
