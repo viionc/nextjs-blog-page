@@ -1,8 +1,6 @@
-import {ResolvableTo} from "tailwindcss/types/config";
-
 export type Status = "loading" | "done" | "error";
-export const BASE_URL = "http://localhost:3000/";
-
+export const BASE_URL =
+    process.env.NEXT_PUBLIC_VERCEL_ENV === "development" ? "http://localhost:3000/" : "https://nextjs-blog-page-sepia.vercel.app/";
 // export const formatPost = (data: any): Post => {
 //     return {
 //         postId: data.postid,
@@ -47,6 +45,7 @@ export interface Post extends PostRequest {
     createdAt: string;
     user: any;
 }
+
 export const addPost = async (post: PostRequest): Promise<Post> => {
     try {
         const response = await fetch(`${BASE_URL}api/post`, {cache: "no-store", method: "POST", body: JSON.stringify(post)});
