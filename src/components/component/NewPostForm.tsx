@@ -10,9 +10,9 @@ import {Textarea} from "@/components/ui/textarea";
 import {Button} from "@/components/ui/button";
 import {FormEvent, useState} from "react";
 import {useRouter} from "next/navigation";
-import {addPost} from "@/lib/apiUtil";
 import {User} from "next-auth";
 import {toast} from "../ui/use-toast";
+import API, {PostRequest} from "@/lib/apiUtil";
 
 export function NewPostForm({user}: {user: User}) {
     const categories = ["Food", "Technology", "Movies & TV shows", "Music"] as const;
@@ -21,9 +21,7 @@ export function NewPostForm({user}: {user: User}) {
     const [text, setText] = useState("");
     const router = useRouter();
 
-    const submit = (e: FormEvent) => {
-        e.preventDefault();
-        console.log(user.id);
+    const createPostObject = (): PostRequest => {
         const post = {
             title,
             category,
@@ -31,19 +29,24 @@ export function NewPostForm({user}: {user: User}) {
             userId: user.id,
             userName: user.name || "Anonymous",
         };
-        addPost(post)
-            .then((data) => {
-                toast({
-                    description: "Succesfully added a post.",
-                });
-                router.push(`/posts/${data.postId}`);
-            })
-            .catch((err) => {
-                toast({
-                    description: "Couldn't add a post.",
-                    variant: "destructive",
-                });
+        return post;
+    };
+
+    const submit = async (e: FormEvent) => {
+        e.preventDefault();
+        const post = createPostObject();
+        try {
+            const response = await API.addPost(post);
+            toast({
+                description: "Succesfully added a post.",
             });
+            router.push(`/posts/${response.postId}`);
+        } catch (error) {
+            toast({
+                description: "Couldn't add a post.",
+                variant: "destructive",
+            });
+        }
     };
 
     return (

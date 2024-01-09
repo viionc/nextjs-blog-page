@@ -1,7 +1,6 @@
 "use client";
-import {Post, deletePost} from "@/lib/apiUtil";
+import API, {Post} from "@/lib/apiUtil";
 import Link from "next/link";
-import React from "react";
 import Image from "next/image";
 import {toast} from "../ui/use-toast";
 
@@ -12,16 +11,16 @@ type PostCardProps = {
 };
 
 function PostCard({post, removePostLocally, userId}: PostCardProps) {
-    const handleDeletePost = () => {
-        const response = deletePost(post.postId);
-        if (!response) {
+    const handleDeletePost = async () => {
+        try {
+            const response = await API.deletePost(post.postId);
+            removePostLocally(post.postId);
+        } catch {
             toast({
                 description: "Couldn't delete post.",
                 variant: "destructive",
             });
-            return;
         }
-        removePostLocally(post.postId);
     };
 
     const isUsersPost = userId && userId === post.userId ? true : false;

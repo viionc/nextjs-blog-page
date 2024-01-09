@@ -1,24 +1,14 @@
 "use client";
 import Spinner from "@/components/component/Spinner";
-import {Post, Status, getPost} from "@/lib/apiUtil";
 import {usePathname} from "next/navigation";
-import React, {useEffect, useState} from "react";
 import PostContent from "./PostContent";
+import useFetchUniquePosts from "@/hooks/useFetchUniquePost";
 
 function Page() {
-    const [post, setPost] = useState<Post | null>(null);
-    const [status, setStatus] = useState<Status>("loading");
     const path = usePathname();
     const postId = path.split("/").slice(-1)[0];
-    useEffect(() => {
-        setStatus("loading");
-        getPost(postId)
-            .then((data) => {
-                setPost(data);
-                setStatus("done");
-            })
-            .catch(() => setStatus("error"));
-    }, [postId]);
+
+    const {post, status} = useFetchUniquePosts(postId);
 
     return (
         <main className="flex justify-center w-full py-6">
