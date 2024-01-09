@@ -5,7 +5,8 @@ Project for learning purposes.
 Features so far:
 - Authentication with GitHub,
 - Adding posts to the database,
-- Viewing individual posts
+- Viewing individual posts,
+- Deleting posts
 
 Techstack:
 - Next.js
@@ -13,9 +14,8 @@ Techstack:
 - PostgreSQL (vercel)
 - Next Auth
 - TypeScript
+- shadcn ui
 
-
-Also testing some v0 AI components by vercel.
 
 
 
