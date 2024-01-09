@@ -8,7 +8,7 @@ export default async function Home() {
     return (
         <main className="flex min-h-screen flex-col items-center justify-between ">
             {session?.user ? <AddNewPostButton /> : null}
-            <BlogContent />
+            <BlogContent userId={session?.user.id} />
         </main>
     );
 }

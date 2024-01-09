@@ -59,8 +59,7 @@ export const addPost = async (post: PostRequest): Promise<Post> => {
 
 export const deletePost = async (postId: string): Promise<boolean> => {
     try {
-        const response = await fetch(`${BASE_URL}api/delete`, {cache: "no-store", method: "DELETE", body: JSON.stringify({postId})});
-        const result = await response.json();
+        await fetch(`${BASE_URL}api/delete`, {cache: "no-store", method: "DELETE", body: JSON.stringify({postId})});
         return true;
     } catch (error) {
         throw new Error("Couldn't delete post in database.");
