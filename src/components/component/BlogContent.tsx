@@ -3,12 +3,13 @@ import PostCard from "./PostCard";
 import Spinner from "./Spinner";
 import {Post} from "@/lib/apiUtil";
 import useFetchAllPosts from "@/hooks/useFetchAllPosts";
+import {SessionUser} from "@/types/next-auth";
 
 type BlogContentProps = {
-    userId: string | undefined;
+    user: SessionUser | undefined;
 };
 
-function BlogContent({userId}: BlogContentProps) {
+function BlogContent({user}: BlogContentProps) {
     const {posts, status, removePostLocally} = useFetchAllPosts();
 
     return (
@@ -17,7 +18,7 @@ function BlogContent({userId}: BlogContentProps) {
                 {status === "loading" && <Spinner />}
                 {status === "done" ? (
                     posts.length > 0 ? (
-                        posts.map((post: Post) => <PostCard key={post.postId} post={post} removePostLocally={removePostLocally} userId={userId} />)
+                        posts.map((post: Post) => <PostCard key={post.postId} post={post} removePostLocally={removePostLocally} user={user} />)
                     ) : (
                         <p>No posts in database. Be first.</p>
                     )

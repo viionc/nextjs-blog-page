@@ -1,3 +1,5 @@
+import {Role, User} from "@prisma/client";
+
 export type Status = "loading" | "done" | "error";
 export const BASE_URL =
     process.env.NEXT_PUBLIC_VERCEL_ENV === "development" ? "http://localhost:3000/" : "https://nextjs-blog-page-sepia.vercel.app/";
@@ -7,6 +9,7 @@ type APIProps = {
     getUniquePost: (postId: string) => Promise<Post>;
     addPost: (post: PostRequest) => Promise<Post>;
     deletePost: (postId: string) => Promise<boolean>;
+    updateUserRole: (userId: string, newRole: Role) => Promise<User>;
 };
 
 export interface PostRequest {
@@ -58,6 +61,18 @@ const API: APIProps = {
             return true;
         } catch (error) {
             throw new Error("Couldn't delete post in database.");
+        }
+    },
+    updateUserRole: async (userId: string, newRole: Role): Promise<User> => {
+        try {
+            const response = await fetch(`${BASE_URL}api/put/user`, {
+                method: "PUT",
+                body: JSON.stringify({userId, newRole}),
+            });
+            const user = response.json();
+            return user;
+        } catch (error) {
+            throw new Error("Couldn't update user in database.");
         }
     },
 };

@@ -4,18 +4,21 @@ import Link from "next/link";
 import Image from "next/image";
 import {toast} from "../ui/use-toast";
 import ReactTimeAgo from "react-time-ago";
-import en from "javascript-time-ago/locale/en.json";
-import TimeAgo from "javascript-time-ago";
+import {User} from "next-auth";
+import {Role} from "@prisma/client";
+
+export type SessionUser = {
+    id: string;
+    role: Role;
+} & User;
 
 type PostCardProps = {
     post: Post;
     removePostLocally: (postId: string) => void;
-    userId: string | undefined;
+    user: SessionUser | undefined;
 };
 
-function PostCard({post, removePostLocally, userId}: PostCardProps) {
-    TimeAgo.addDefaultLocale(en);
-
+function PostCard({post, removePostLocally, user}: PostCardProps) {
     const handleDeletePost = async () => {
         try {
             const response = await API.deletePost(post.postId);
@@ -28,7 +31,7 @@ function PostCard({post, removePostLocally, userId}: PostCardProps) {
         }
     };
 
-    const isUsersPost = userId && userId === post.userId ? true : false;
+    const isUsersPost = user && (user.id === post.userId || user.role === "ADMIN") ? true : false;
 
     return (
         <li className="relative items-center flex justify-between w-full border border-gray-500 shadow-sm shadow-gray-200 rounded-lg text-white p-2 cursor-pointer bg-zinc-950  hover:hover:scale-105 transition-all">
