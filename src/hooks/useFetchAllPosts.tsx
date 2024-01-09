@@ -15,6 +15,7 @@ const useFetchAllPosts = () => {
             try {
                 const response = await API.getAllPosts();
                 setPosts(response);
+
                 setStatus("done");
             } catch (error) {
                 setStatus("error");

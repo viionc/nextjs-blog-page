@@ -3,7 +3,6 @@ export const BASE_URL =
     process.env.NEXT_PUBLIC_VERCEL_ENV === "development" ? "http://localhost:3000/" : "https://nextjs-blog-page-sepia.vercel.app/";
 
 type APIProps = {
-    BASE_URL: string;
     getAllPosts: () => Promise<Post[]>;
     getUniquePost: (postId: string) => Promise<Post>;
     addPost: (post: PostRequest) => Promise<Post>;
@@ -24,7 +23,6 @@ export interface Post extends PostRequest {
 }
 
 const API: APIProps = {
-    BASE_URL: process.env.NEXT_PUBLIC_VERCEL_ENV === "development" ? "http://localhost:3000/" : "https://nextjs-blog-page-sepia.vercel.app/",
     getAllPosts: async (): Promise<Post[]> => {
         try {
             const response = await fetch(`${BASE_URL}api/get`, {cache: "no-store"});
