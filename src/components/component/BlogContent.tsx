@@ -21,7 +21,7 @@ function BlogContent() {
         fetchdata();
     }, []);
 
-    const removePost = (postId: string) => {
+    const removePostLocally = (postId: string) => {
         setPosts((prev) => prev.filter((post) => post.postId !== postId));
     };
 
@@ -31,7 +31,7 @@ function BlogContent() {
                 {status === "loading" && <Spinner />}
                 {status === "done" &&
                     posts.length > 0 &&
-                    posts.map((post: Post) => <PostCard key={post.postId} post={post} removePost={removePost} />)}
+                    posts.map((post: Post) => <PostCard key={post.postId} post={post} removePostLocally={removePostLocally} />)}
                 {status === "error" && <p>Couldnt load data</p>}
             </ul>
         </section>
