@@ -21,11 +21,17 @@ function BlogContent() {
         fetchdata();
     }, []);
 
+    const removePost = (postId: string) => {
+        setPosts((prev) => prev.filter((post) => post.postId !== postId));
+    };
+
     return (
         <section className="container flex justify-center">
             <ul className="flex flex-col gap-2 w-1/3 mt-8 items-center">
                 {status === "loading" && <Spinner />}
-                {status === "done" && posts.length > 0 && posts.map((post: Post) => <PostCard key={post.postId} post={post} />)}
+                {status === "done" &&
+                    posts.length > 0 &&
+                    posts.map((post: Post) => <PostCard key={post.postId} post={post} removePost={removePost} />)}
                 {status === "error" && <p>Couldnt load data</p>}
             </ul>
         </section>
