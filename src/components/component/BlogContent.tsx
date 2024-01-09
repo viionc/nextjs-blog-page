@@ -1,10 +1,10 @@
 "use client";
 import React, {useEffect, useState} from "react";
-import PostCard from "./components/PostCard";
-import Spinner from "./components/Spinner";
+import PostCard from "./PostCard";
+import Spinner from "./Spinner";
 import {Post, Status, getAllPosts} from "@/lib/apiUtil";
 
-function BlogPage() {
+function BlogContent() {
     const [posts, setPosts] = useState<Post[]>([]);
     const [status, setStatus] = useState<Status>("done");
 
@@ -32,4 +32,4 @@ function BlogPage() {
     );
 }
 
-export default BlogPage;
+export default BlogContent;

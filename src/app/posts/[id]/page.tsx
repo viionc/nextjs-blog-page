@@ -1,5 +1,5 @@
 "use client";
-import Spinner from "@/app/ui/components/Spinner";
+import Spinner from "@/components/component/Spinner";
 import {Post, Status, getPost} from "@/lib/apiUtil";
 import {usePathname} from "next/navigation";
 import React, {useEffect, useState} from "react";

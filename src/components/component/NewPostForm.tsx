@@ -36,7 +36,7 @@ export function NewPostForm({user}: {user: User}) {
     };
 
     return (
-        <div className="dark bg-gray-800 text-white p-6 rounded-lg w-1/2">
+        <div className="dark bg-zinc-800 text-white p-6 rounded-lg w-1/2">
             <h2 className="text-2xl font-bold mb-4">Create a Blog Post</h2>
             <form className="space-y-4" onSubmit={submit}>
                 <div className="flex flex-col space-y-1.5">
@@ -44,7 +44,7 @@ export function NewPostForm({user}: {user: User}) {
                         Title
                     </Label>
                     <Input
-                        className="text-base bg-slate-700"
+                        className="text-base bg-zinc-900 border-zinc-700"
                         id="title"
                         placeholder="Enter your blog title"
                         onChange={(e) => setTitle(e.target.value)}
@@ -56,12 +56,12 @@ export function NewPostForm({user}: {user: User}) {
                         Category
                     </Label>
                     <Select onValueChange={(value) => setCategory(value)} required>
-                        <SelectTrigger className="text-base bg-slate-700" id="category">
+                        <SelectTrigger className="text-base bg-zinc-900 border-zinc-700" id="category">
                             <SelectValue placeholder="Select a category" />
                         </SelectTrigger>
-                        <SelectContent position="popper" className="bg-white text-black ">
+                        <SelectContent position="popper" className="border-zinc-700 bg-zinc-700 text-white ">
                             {categories.map((category) => (
-                                <SelectItem value={category} key={category}>
+                                <SelectItem value={category} key={category} className="cursor-pointer hover:bg-zinc-600 rounded-md">
                                     {category}
                                 </SelectItem>
                             ))}
@@ -73,14 +73,14 @@ export function NewPostForm({user}: {user: User}) {
                         Content
                     </Label>
                     <Textarea
-                        className="text-base min-h-[200px] text-white bg-slate-700"
+                        className="text-base min-h-[200px] text-white bg-zinc-900 border-zinc-700"
                         id="content"
                         placeholder="Write your blog post here..."
                         onChange={(e) => setText(e.target.value)}
                         required
                     />
                 </div>
-                <Button className="self-end bg-white text-black" type="submit">
+                <Button className="self-end bg-white text-black hover:bg-gray-300 transition-colors font-semibold" type="submit">
                     Publish
                 </Button>
             </form>
