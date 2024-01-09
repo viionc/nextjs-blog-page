@@ -12,6 +12,7 @@ import {FormEvent, useState} from "react";
 import {useRouter} from "next/navigation";
 import {addPost} from "@/lib/apiUtil";
 import {User} from "next-auth";
+import {toast} from "../ui/use-toast";
 
 export function NewPostForm({user}: {user: User}) {
     const categories = ["Food", "Technology", "Movies & TV shows", "Music"] as const;
@@ -31,8 +32,18 @@ export function NewPostForm({user}: {user: User}) {
             userName: user.name || "Anonymous",
         };
         addPost(post)
-            .then((data) => router.push(`/posts/${data.postId}`))
-            .catch((err) => console.log(err));
+            .then((data) => {
+                toast({
+                    description: "Succesfully added a post.",
+                });
+                router.push(`/posts/${data.postId}`);
+            })
+            .catch((err) => {
+                toast({
+                    description: "Couldn't add a post.",
+                    variant: "destructive",
+                });
+            });
     };
 
     return (

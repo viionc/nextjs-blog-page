@@ -3,16 +3,24 @@ import {Post, deletePost} from "@/lib/apiUtil";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-import {redirect} from "next/navigation";
+import {toast} from "../ui/use-toast";
+
 type PostCardProps = {
     post: Post;
-    removePost: (postId: string) => void;
+    removePostLocally: (postId: string) => void;
 };
 
-function PostCard({post, removePost}: PostCardProps) {
+function PostCard({post, removePostLocally}: PostCardProps) {
     const handleDeletePost = () => {
-        deletePost(post.postId);
-        removePost(post.postId);
+        const response = deletePost(post.postId);
+        if (!response) {
+            toast({
+                description: "Couldn't delete post.",
+                variant: "destructive",
+            });
+            return;
+        }
+        removePostLocally(post.postId);
     };
 
     return (
