@@ -1,5 +1,5 @@
 import {auth} from "@/auth";
-import {NewPostForm} from "@/components/component/new-post-form";
+import {NewPostForm} from "@/components/component/NewPostForm";
 import {redirect} from "next/navigation";
 
 export default async function Page() {
