@@ -8,9 +8,10 @@ import {toast} from "../ui/use-toast";
 type PostCardProps = {
     post: Post;
     removePostLocally: (postId: string) => void;
+    userId: string | undefined;
 };
 
-function PostCard({post, removePostLocally}: PostCardProps) {
+function PostCard({post, removePostLocally, userId}: PostCardProps) {
     const handleDeletePost = () => {
         const response = deletePost(post.postId);
         if (!response) {
@@ -23,6 +24,8 @@ function PostCard({post, removePostLocally}: PostCardProps) {
         removePostLocally(post.postId);
     };
 
+    const isUsersPost = userId && userId === post.userId ? true : false;
+
     return (
         <li className="relative flex justify-between w-full border border-gray-500 shadow-sm shadow-gray-200 rounded-lg text-white p-2 cursor-pointer bg-zinc-950  hover:hover:scale-105 transition-all">
             <Link href={`/posts/${post.postId}`} className="w-full">
@@ -33,7 +36,9 @@ function PostCard({post, removePostLocally}: PostCardProps) {
                     <span className="text-md text-gray-500">{post.category}</span>
                 </div>
             </Link>
-            <Image height={32} width={32} className="hover:stroke-white" src="/xmark.svg" alt="Delete post" onClick={handleDeletePost} />
+            {isUsersPost && (
+                <Image height={32} width={32} className="hover:stroke-white" src="/xmark.svg" alt="Delete post" onClick={handleDeletePost} />
+            )}
         </li>
     );
 }

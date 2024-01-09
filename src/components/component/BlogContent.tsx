@@ -4,7 +4,11 @@ import PostCard from "./PostCard";
 import Spinner from "./Spinner";
 import {Post, Status, getAllPosts} from "@/lib/apiUtil";
 
-function BlogContent() {
+type BlogContentProps = {
+    userId: string | undefined;
+};
+
+function BlogContent({userId}: BlogContentProps) {
     const [posts, setPosts] = useState<Post[]>([]);
     const [status, setStatus] = useState<Status>("done");
 
@@ -31,7 +35,7 @@ function BlogContent() {
                 {status === "loading" && <Spinner />}
                 {status === "done" &&
                     posts.length > 0 &&
-                    posts.map((post: Post) => <PostCard key={post.postId} post={post} removePostLocally={removePostLocally} />)}
+                    posts.map((post: Post) => <PostCard key={post.postId} post={post} removePostLocally={removePostLocally} userId={userId} />)}
                 {status === "error" && <p>Couldnt load data</p>}
             </ul>
         </section>
