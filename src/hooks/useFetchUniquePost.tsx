@@ -10,6 +10,10 @@ const useFetchUniquePosts = (postId: string) => {
             setStatus("loading");
             try {
                 const response = await API.getUniquePost(postId);
+                if (!response) {
+                    setStatus("error");
+                    return;
+                }
                 setPost(response);
                 setStatus("done");
             } catch (error) {

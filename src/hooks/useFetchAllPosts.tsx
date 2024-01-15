@@ -14,6 +14,10 @@ const useFetchAllPosts = () => {
             setStatus("loading");
             try {
                 const response = await API.getAllPosts();
+                if (!response) {
+                    setStatus("error");
+                    return;
+                }
                 setPosts(response);
 
                 setStatus("done");
