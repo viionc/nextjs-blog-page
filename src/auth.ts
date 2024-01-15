@@ -11,6 +11,8 @@ export const authConfig = {
     callbacks: {
         async session({session, user}) {
             session.user.id = user.id;
+            //@ts-ignore
+            session.user.role = user.role;
             return session;
         },
     },

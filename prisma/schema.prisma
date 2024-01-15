@@ -48,6 +48,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   posts         Post[]
+  role          Role  @default(USER)
 }
 
 model VerificationToken {
@@ -67,4 +68,12 @@ model Post {
   user        User      @relation(fields: [userId], references: [id])
   userId      String    
   userName    String
+  views       Int       @default(0)
+  likes       Int       @default(0)  
  }
+
+enum Role {
+  BANNED
+  USER
+  ADMIN
+}
