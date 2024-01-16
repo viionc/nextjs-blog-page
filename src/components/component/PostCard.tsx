@@ -3,9 +3,9 @@ import API, {Post} from "@/lib/apiUtil";
 import Link from "next/link";
 import Image from "next/image";
 import {toast} from "../ui/use-toast";
-import ReactTimeAgo from "react-time-ago";
 import {User} from "next-auth";
 import {Role} from "@prisma/client";
+import TimeAgo from "timeago-react";
 
 export type SessionUser = {
     id: string;
@@ -41,7 +41,7 @@ function PostCard({post, removePostLocally, user}: PostCardProps) {
                         {post.title} by {post.userName}
                     </h2>
                     <span className="text-md text-gray-400">{post.category}</span>
-                    <ReactTimeAgo date={new Date(post.createdAt)} locale="en-US" className="text-md text-gray-400" />
+                    <TimeAgo className="text-md text-gray-400" datetime={new Date(post.createdAt)} locale="en_US" />
                 </div>
             </Link>
             {isUsersPost && (

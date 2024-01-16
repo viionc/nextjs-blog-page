@@ -1,20 +1,14 @@
 "use client";
 import {Button} from "@/components/ui/button";
-import TimeAgo from "javascript-time-ago";
-import en from "javascript-time-ago/locale/en";
 import {User} from "next-auth";
 import {useRouter} from "next/navigation";
-import React, {useEffect} from "react";
+import React from "react";
 
 function NavbarProfile({user}: {user: User | undefined}) {
     const router = useRouter();
     const handleAuthButton = () => {
         !user ? router.push("/api/auth/signin") : router.push("/api/auth/signout");
     };
-
-    useEffect(() => {
-        TimeAgo.addDefaultLocale(en);
-    }, []);
 
     return (
         <div className="ms-auto flex gap-8">

@@ -1,6 +1,6 @@
 import {Post} from "@/lib/apiUtil";
 import React from "react";
-import ReactTimeAgo from "react-time-ago";
+import TimeAgo from "timeago-react";
 
 function PostContent({post}: {post: Post}) {
     return (
@@ -9,7 +9,7 @@ function PostContent({post}: {post: Post}) {
                 <h1 className="text-3xl">{post.title}</h1>
                 <h2 className="text-xl">by {post.userName}</h2>
                 <h3 className="text-md text-zinc-400">
-                    <ReactTimeAgo date={new Date(post.createdAt)} locale="en-US" />
+                    <TimeAgo className="text-md text-gray-400" datetime={new Date(post.createdAt)} locale="en_US" />
                 </h3>
                 <h3 className="text-md text-zinc-400">{post.category}</h3>
             </div>
