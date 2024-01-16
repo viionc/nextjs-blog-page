@@ -3,6 +3,7 @@ import Spinner from "@/components/component/Spinner";
 import {usePathname} from "next/navigation";
 import PostContent from "./PostContent";
 import useFetchUniquePosts from "@/hooks/useFetchUniquePost";
+import {usePostDataContext} from "@/services/PostDataContext";
 
 function Page() {
     const path = usePathname();

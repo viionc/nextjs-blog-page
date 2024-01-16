@@ -14,10 +14,12 @@ import {User} from "next-auth";
 import {toast} from "../ui/use-toast";
 import API, {PostRequest} from "@/lib/apiUtil";
 
+export const categories = ["Food", "Technology", "Movies & TV shows", "Music", "Sport", "Video Games", "Programming"] as const;
+export type PostCategory = (typeof categories)[number];
+
 export function NewPostForm({user}: {user: User}) {
-    const categories = ["Food", "Technology", "Movies & TV shows", "Music"] as const;
     const [title, setTitle] = useState("");
-    const [category, setCategory] = useState("Food");
+    const [category, setCategory] = useState<PostCategory>("Food");
     const [text, setText] = useState("");
     const router = useRouter();
 
@@ -69,7 +71,7 @@ export function NewPostForm({user}: {user: User}) {
                     <Label className="text-lg" htmlFor="category">
                         Category
                     </Label>
-                    <Select onValueChange={(value) => setCategory(value)} required>
+                    <Select onValueChange={(value) => setCategory(value as PostCategory)} required>
                         <SelectTrigger className="text-base bg-zinc-900 border-zinc-700" id="category">
                             <SelectValue placeholder="Select a category" />
                         </SelectTrigger>

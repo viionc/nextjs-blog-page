@@ -1,13 +1,11 @@
 import API, {Post, Status} from "@/lib/apiUtil";
+import {usePostDataContext} from "@/services/PostDataContext";
 import {useEffect, useState} from "react";
 
 const useFetchAllPosts = () => {
     const [posts, setPosts] = useState<Post[]>([]);
     const [status, setStatus] = useState<Status>("loading");
-
-    const removePostLocally = (postId: string) => {
-        setPosts((prev) => prev.filter((post) => post.postId !== postId));
-    };
+    const {updatePosts} = usePostDataContext();
 
     useEffect(() => {
         const fetchdata = async () => {
@@ -18,7 +16,7 @@ const useFetchAllPosts = () => {
                     setStatus("error");
                     return;
                 }
-                setPosts(response);
+                updatePosts(response);
 
                 setStatus("done");
             } catch (error) {
@@ -27,7 +25,7 @@ const useFetchAllPosts = () => {
         };
         fetchdata();
     }, []);
-    return {posts, status, removePostLocally};
+    return {status};
 };
 
 export default useFetchAllPosts;
