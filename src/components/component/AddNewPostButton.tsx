@@ -8,7 +8,7 @@ function AddNewPostButton() {
     return (
         <>
             <Button
-                className={`bg-white rounded-md text-black hover:bg-gray-300 transition-colors p-1 font-semibold h-8 w-32 fixed top-[95px] left-1/4`}
+                className={`bg-white rounded-md text-black hover:bg-gray-300 transition-colors p-1 font-semibold h-8 w-32`}
                 onClick={() => router.push("/add-new-post")}>
                 Add new post
             </Button>
