@@ -13,9 +13,12 @@ export const authConfig = {
             session.user.id = user.id;
             //@ts-ignore
             session.user.role = user.role;
+            //@ts-ignore
+            session.user.likedPosts = user.likedPosts;
             return session;
         },
     },
+    trustHost: true,
 } satisfies NextAuthConfig;
 
 export const {handlers, auth, signOut} = NextAuth(authConfig);

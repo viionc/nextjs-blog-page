@@ -1,9 +1,8 @@
-import API, {Post, Status} from "@/lib/apiUtil";
+import API, {Status} from "@/lib/apiUtil";
 import {usePostDataContext} from "@/services/PostDataContext";
 import {useEffect, useState} from "react";
 
 const useFetchAllPosts = () => {
-    const [posts, setPosts] = useState<Post[]>([]);
     const [status, setStatus] = useState<Status>("loading");
     const {updatePosts} = usePostDataContext();
 

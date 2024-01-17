@@ -49,6 +49,7 @@ model User {
   sessions      Session[]
   posts         Post[]
   role          Role  @default(USER)
+  likedPosts    String[] @default([])
 }
 
 model VerificationToken {

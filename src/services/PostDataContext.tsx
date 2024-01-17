@@ -1,6 +1,6 @@
 "use client";
 import {PostCategory} from "@/components/component/NewPostForm";
-import {Post} from "@/lib/apiUtil";
+import {Post} from "@prisma/client";
 import {ReactNode, createContext, useContext, useEffect, useState} from "react";
 
 type PostDataContextProviderProps = {

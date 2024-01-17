@@ -1,4 +1,4 @@
-import {Role, User} from "@prisma/client";
+import {Post, Role, User} from "@prisma/client";
 
 export type Status = "loading" | "done" | "error";
 export const BASE_URL =
@@ -7,23 +7,12 @@ export const BASE_URL =
 type APIProps = {
     getAllPosts: () => Promise<Post[]>;
     getUniquePost: (postId: string) => Promise<Post>;
-    addPost: (post: PostRequest) => Promise<Post>;
+    addPost: (post: Partial<Post>) => Promise<Post>;
     deletePost: (postId: string) => Promise<boolean>;
     updateUserRole: (userId: string, newRole: Role) => Promise<User>;
+    likePost: (userId: string, postId: string, isLiked: boolean) => Promise<Post>;
+    unlikePost: (userId: string, likedPosts: Post[]) => Promise<Post>;
 };
-
-export interface PostRequest {
-    title: string;
-    category: string;
-    text: string;
-    userId: string;
-    userName: string;
-}
-export interface Post extends PostRequest {
-    postId: string;
-    createdAt: string;
-    user: any;
-}
 
 const API: APIProps = {
     getAllPosts: async (): Promise<Post[]> => {
@@ -46,7 +35,7 @@ const API: APIProps = {
             throw new Error("");
         }
     },
-    addPost: async (post: PostRequest): Promise<Post> => {
+    addPost: async (post: Partial<Post>): Promise<Post> => {
         try {
             const response = await fetch(`${BASE_URL}api/post`, {cache: "no-store", method: "POST", body: JSON.stringify(post)});
             const newPost = await response.json();
@@ -73,6 +62,30 @@ const API: APIProps = {
             return user;
         } catch (error) {
             throw new Error("Couldn't update user in database.");
+        }
+    },
+    likePost: async (userId: string, postId: string, isLiked: boolean): Promise<Post> => {
+        try {
+            const response = await fetch(`${BASE_URL}api/put/post`, {
+                method: "PUT",
+                body: JSON.stringify({postId, userId, isLiked}),
+            });
+            const post = response.json();
+            return post;
+        } catch (error) {
+            throw new Error("Couldn't update the post.");
+        }
+    },
+    unlikePost: async (userId: string, likedPosts: Post[]): Promise<Post> => {
+        try {
+            const response = await fetch(`${BASE_URL}api/put/post`, {
+                method: "PUT",
+                body: JSON.stringify({userId, likedPosts}),
+            });
+            const post = response.json();
+            return post;
+        } catch (error) {
+            throw new Error("Couldn't update the post.");
         }
     },
 };

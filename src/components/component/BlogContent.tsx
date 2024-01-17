@@ -1,10 +1,10 @@
 "use client";
 import PostCard from "./PostCard";
 import Spinner from "./Spinner";
-import {Post} from "@/lib/apiUtil";
 import useFetchAllPosts from "@/hooks/useFetchAllPosts";
 import {SessionUser} from "@/types/next-auth";
 import {usePostDataContext} from "@/services/PostDataContext";
+import {Post} from "@prisma/client";
 
 type BlogContentProps = {
     user: SessionUser | undefined;

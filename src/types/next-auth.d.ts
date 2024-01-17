@@ -5,6 +5,7 @@ import {type DefaultSession, type DefaultUser} from "next-auth";
 export type SessionUser = {
     id: string;
     role: Role;
+    likedPosts: string[];
 } & DefaultSession["user"];
 
 declare module "next-auth" {

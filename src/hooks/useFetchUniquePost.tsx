@@ -1,5 +1,6 @@
-import API, {Post, Status} from "@/lib/apiUtil";
+import API, {Status} from "@/lib/apiUtil";
 import {usePostDataContext} from "@/services/PostDataContext";
+import {Post} from "@prisma/client";
 import {useEffect, useState} from "react";
 
 const useFetchUniquePosts = (postId: string) => {

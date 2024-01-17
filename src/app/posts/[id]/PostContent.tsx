@@ -1,8 +1,36 @@
-import {Post} from "@/lib/apiUtil";
-import React from "react";
+"use client";
+import API from "@/lib/apiUtil";
+import React, {useState} from "react";
 import TimeAgo from "timeago-react";
+import {Heart} from "lucide-react";
+import {SessionUser} from "@/types/next-auth";
+import {toast} from "@/components/ui/use-toast";
+import {Post} from "@prisma/client";
 
-function PostContent({post}: {post: Post}) {
+type PostContentProps = {
+    post: Post;
+    user: SessionUser | undefined;
+};
+
+function PostContent({user, post}: PostContentProps) {
+    const [isLiked, setIsLiked] = useState(user?.likedPosts.find((id) => id === post.postId) ? true : false);
+
+    const like = async () => {
+        if (!user) return;
+
+        const response = await API.likePost(user.id, post.postId, isLiked);
+        if (!response) {
+            toast({description: "Failed to like the post.", variant: "destructive"});
+        }
+        if (!isLiked) {
+            user.likedPosts.push(post.postId);
+            setIsLiked(true);
+        } else {
+            user.likedPosts = user.likedPosts.filter((id) => id !== post.postId);
+            setIsLiked(false);
+        }
+    };
+
     return (
         <article className="flex flex-col w-1/2 ">
             <div className="gap-2 mb-16 border border-zinc-700 p-4 bg-zinc-800 rounded-md shadow-md shadow-zinc-800">
@@ -12,6 +40,9 @@ function PostContent({post}: {post: Post}) {
                     <TimeAgo className="text-md text-gray-400" datetime={new Date(post.createdAt)} locale="en_US" />
                 </h3>
                 <h3 className="text-md text-zinc-400">{post.category}</h3>
+                <button onClick={like}>
+                    <Heart fill={`${isLiked ? "red" : "white"}`} />
+                </button>
             </div>
             <p className="text-xl whitespace-pre-line bg-zinc-800 rounded-md p-4 border border-zinc-700 shadow-md shadow-zinc-800">{post.text}</p>
         </article>

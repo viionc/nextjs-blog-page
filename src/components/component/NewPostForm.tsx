@@ -12,7 +12,8 @@ import {FormEvent, useState} from "react";
 import {useRouter} from "next/navigation";
 import {User} from "next-auth";
 import {toast} from "../ui/use-toast";
-import API, {PostRequest} from "@/lib/apiUtil";
+import API from "@/lib/apiUtil";
+import {Post} from "@prisma/client";
 
 export const categories = ["Food", "Technology", "Movies & TV shows", "Music", "Sport", "Video Games", "Programming"] as const;
 export type PostCategory = (typeof categories)[number];
@@ -23,7 +24,7 @@ export function NewPostForm({user}: {user: User}) {
     const [text, setText] = useState("");
     const router = useRouter();
 
-    const createPostObject = (): PostRequest => {
+    const createPostObject = (): Partial<Post> => {
         const post = {
             title,
             category,
